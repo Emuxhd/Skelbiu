@@ -7,18 +7,18 @@ export function authMiddleware(req: Request) {
     const authHeader = req.headers.get("Authorization") || req.headers.get("authorization");
     
     if (!authHeader) {
-      console.log("Middleware klaida: Nerastas Authorization headeris");
+      console.log("Middleware error: Nerastas Authorization headeris");
       return null;
     }
 
     if (!authHeader.startsWith("Bearer ")) {
-      console.log("Middleware klaida: Headeris neprasideda 'Bearer '");
+      console.log("Middleware error: Headeris neprasideda 'Bearer '");
       return null;
     }
 
     const token = authHeader.split(" ")[1];
     if (!token) {
-      console.log("Middleware klaida: Tokenas yra tuščias");
+      console.log("Middleware error: Tokenas yra tuščias");
       return null;
     }
 
@@ -26,7 +26,7 @@ export function authMiddleware(req: Request) {
     
     return decoded; 
   } catch (err) {
-    console.log("Middleware klaida: Neteisingas arba pasibaigęs Tokenas", err);
+    console.log("Middleware error: Neteisingas arba pasibaigęs Tokenas", err);
     return null;
   }
 }
